@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+    chrome:
+        image: selenium/standalone-chrome:latest
+        hostname: chrome
+        privileged: true
+        shm_size: 2g
+    framework:
+        build: .
+        depends_on: 
+            - chrome
+
+    streamlit:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - '8510:8510'
+      restart: always
+
